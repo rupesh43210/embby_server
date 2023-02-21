@@ -29,21 +29,26 @@ If you encounter any issues, please contact Rupesh Pandey.
 
 "
 
+
 # Update package list and upgrade system
 sudo apt update
 sudo apt upgrade
 
 # Add Emby repository key
-wget -qO - https://download.opensuse.org/repositories/home:emby/xUbuntu_22.04/Release.key | sudo apt-key add -
+#wget -qO - https://download.opensuse.org/repositories/home:emby/Ubuntu_22.04/Release.key | sudo apt-key add -
 
 # Add Emby repository
-echo "deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_22.04/ ./" | sudo tee /etc/apt/sources.list.d/emby-server.list
+#echo "deb http://download.opensuse.org/repositories/home:/emby/Ubuntu_22.04/ ./" | sudo tee /etc/apt/sources.list.d/emby-server.list
 
 # Update package list again
-sudo apt update
+#sudo apt update
 
 # Install Emby Media Server package
-sudo apt install emby-server
+wget https://github.com/MediaBrowser/Emby.Releases/releases/download/4.7.11.0/emby-server-deb_4.7.11.0_amd64.deb
+
+dpkg -i emby-server-*
+
+sudo apt install emby-server -y
 
 # Start Emby service
 sudo systemctl start emby-server
@@ -56,6 +61,4 @@ echo "
 Emby Media Server has been installed and is running on port 8096.
 
 Please open your web browser and navigate to http://localhost:8096 to access the Emby web interface.
-
-"
 
