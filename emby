@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Check if user is root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "This script must be run as root. Please run with sudo su." >&2
+    exit 1
+fi
+
+# Print banner and credits
+echo "
+********************************************
+*                                          *
+*          .d88888b.   
+          d88P" "Y88b         
+          888     888         
+          888     888   888   
+          888     888 8888888 
+          888 Y8b 888   888   
+          Y88b.Y8b88P         
+           "Y888888"          
+                 Y8b          
+                    
+                    
+********************************************
+
+This script will install Emby Media Server on Ubuntu 22.04.
+
+If you encounter any issues, please contact Rupesh Pandey.
+
+"
+
+# Update package list and upgrade system
+sudo apt update
+sudo apt upgrade
+
+# Add Emby repository key
+wget -qO - https://download.opensuse.org/repositories/home:emby/xUbuntu_22.04/Release.key | sudo apt-key add -
+
+# Add Emby repository
+echo "deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_22.04/ ./" | sudo tee /etc/apt/sources.list.d/emby-server.list
+
+# Update package list again
+sudo apt update
+
+# Install Emby Media Server package
+sudo apt install emby-server
+
+# Start Emby service
+sudo systemctl start emby-server
+
+# Check Emby service status
+sudo systemctl status emby-server
+
+# Prompt user to open Emby web interface
+echo "
+Emby Media Server has been installed and is running on port 8096.
+
+Please open your web browser and navigate to http://localhost:8096 to access the Emby web interface.
+
+"
+
